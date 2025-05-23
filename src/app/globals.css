@@ -1,0 +1,172 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #f8fafc;
+  color: #111;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  transition: border 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #3b82f6;
+  margin: 0.25rem 0;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: #2563eb;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-note {
+  background: #334155;
+  color: #ffffff;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.sidebar-note:hover {
+  background: #475569;
+}
+
+.sidebar-note.active {
+  background: #3b82f6;
+  font-weight: 700;
+}
+
+.note-theme-vanilla {
+  background-color: #fffaf0;
+  color: #3b3b3b;
+}
+
+.note-theme-chocolate {
+  background-color: #3e2723;
+  color: #fff8e1;
+}
+
+.note-theme-dark {
+  background-color: #1f2937;
+  color: #e5e7eb;
+}
+
+.note-theme-light {
+  background-color: #ffffff;
+  color: #111827;
+}
+
+.note-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: inherit;
+}
+.note-theme-vanilla {
+  background-color: #fffaf0;
+  color: #3b3b3b;
+}
+.note-theme-vanilla .note-title,
+.note-theme-vanilla .note-content {
+  background: #fffbeb;
+  color: #3b3b3b;
+  border-color: #e5e7eb;
+
+}
+.note-theme-chocolate {
+  background-color: #3e2723;
+  color: #fff8e1;
+}
+.note-theme-chocolate .note-title,
+.note-theme-chocolate .note-content {
+  background: #4e342e;
+  color: #fff8e1;
+  border-color: #795548;
+
+}
+
+.note-theme-dark {
+  background-color: #1f2937;
+  color: #e5e7eb;
+  border-color: #1f2937;
+}
+.note-theme-dark .note-title,
+.note-theme-dark .note-content {
+  background: #111827;
+  color: #e5e7eb;
+}
+
+.note-theme-light {
+  background-color: #ffffff;
+  color: #111827;
+}
+.note-theme-light .note-title,
+.note-theme-light .note-content {
+  background: #f9fafb;
+  color: #111827;
+}
+
+.note-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.75rem;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.note-content {
+  padding: 0.75rem;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  width: 100%;
+  height: 50vh;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  resize: vertical;
+}
