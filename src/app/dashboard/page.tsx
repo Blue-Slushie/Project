@@ -91,20 +91,41 @@ export default function DashboardPage() {
       );
       notify('Note updated');
     } else {
-      const { data, error } = await supabase.from('notes').insert([
-        {
-          title: newTitle || 'Untitled',
-          content: newContent,
-          theme: newTheme,
-          user_id: user.id,
-        },
-      ]);
-      if (error) return notify('Error saving new note');
-      setNotes(prev => [...prev, ...(data || [])]);
-      if (data?.[0]?.id) setSelectedNoteId(data[0].id);
+      const { data, error } = await supabase
+        .from('notes')
+        .insert([
+          {
+            title: newTitle || 'Untitled',
+            content: newContent,
+            theme: newTheme,
+            user_id: user.id,
+          },
+        ])
+        .select(); 
+
+      if (error) {
+        console.error('Supabase insert error:', error.message);
+        return notify('Error saving new note: ' + error.message);
+      }
+
+      const inserted = data as Note[]; 
+      setNotes(prev => [...prev, ...inserted]);
+      if (inserted?.[0]?.id) setSelectedNoteId(inserted[0].id);
       notify('Note added');
     }
   };
+  const deleteNote = async () => {
+    if (!selectedNoteId) return;
+    const { error } = await supabase.from('notes').delete().eq('id', selectedNoteId);
+    if (error) return notify('Failed to delete note');
+    setNotes(prev => prev.filter(note => note.id !== selectedNoteId));
+    setSelectedNoteId(null);
+    setNewTitle('');
+    setNewContent('');
+    setNewTheme('vanilla');
+    notify('Note deleted');
+  };
+
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -128,7 +149,7 @@ export default function DashboardPage() {
     <div style={{ display: 'flex', height: '100vh' }}>
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        style={{ position: 'absolute', top: '1rem', left: '1rem', zIndex: 1000 }}
+        style={{ position: 'absolute', top: '45.5rem', left: '1rem', zIndex: 1000 }}
       >
         ☰
       </button>
@@ -183,8 +204,9 @@ export default function DashboardPage() {
       </aside>
 
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <header style={{ padding: '1rem', borderBottom: '1px solid #ddd', display: 'flex', justifyContent: 'flex-end' }}>
+        <header style={{ padding: '1rem', borderBottom: '1px solid #ddd', display: 'flex', justifyContent: 'space-between' }}>
           <button onClick={handleLogout}>Logout</button>
+          {selectedNoteId && <button onClick={deleteNote} style={{ backgroundColor: '#ef4444', color: '#fff' }}>Delete</button>}
         </header>
 
         <div className={`note-theme-${newTheme}`} style={{ flex: 1, padding: '2rem', overflowY: 'auto' }}>
